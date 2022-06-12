@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -40,6 +44,57 @@ class LoginController extends Controller
 
     public function username()
     {
-        return 'mobile';
+        return 'email';
     }
+
+
+
+/**
+ * Obtain the user information from social.
+ *
+ * @return \Illuminate\Http\Response
+ */
+
+public function redirectToProvider ($provider){
+    return Socialite::driver($provider)->redirect();
+}
+public function handleProviderCallback( $provider)
+{
+    $user = Socialite::driver($provider)->user();
+
+    //dd($user);
+
+    $auth_user = $this->findOrCreateUser($user, $provider);
+
+    Auth::login($auth_user, true);
+
+    return redirect('/home');
+}
+
+/**
+ * get or create user.
+ *
+ * @return \Illuminate\Http\Response
+ */
+public function findOrCreateUser($user, $provider)
+{
+    $authUser = User::where('email', $user->email)->first();
+
+    if ($authUser) {
+        return $authUser;
+    }
+
+    $name = explode(' ', $user->name);
+
+    return User::create([
+        'name' => $name[0],
+            'email' => $user->email,
+            'mobile' => '0910786474',
+            'password' => Hash::make('password'),
+        ]);
+
+    }
+
+
+
 }

@@ -76,11 +76,15 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
+                        <div class="row mb-0 flex">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
+
+                                <a href="{{route('socialLogin.redirect','facebook')}}" class="btn btn-primary">
+                                    Login with FB
+                                </a>
                             </div>
                         </div>
                     </form>

@@ -12,10 +12,10 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="mobile" class="col-md-4 col-form-label text-md-end">Mobile</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
 
                             <div class="col-md-6">
-                                <input id="mobile" type="mobile" class="form-control @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -62,6 +62,11 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+                            </div>
+                        </div>
+                        <div class="row mb-0">
+                            <div class="col-md-8 offset-md-4 mt-1">
+                        <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
                             </div>
                         </div>
                     </form>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
@@ -18,3 +19,6 @@ use App\Http\Controllers\NewsController;
 Auth::routes(['verify'=>true]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
+
+Route::get('login/{provider}', [LoginController::class,'redirectToProvider'])->name('socialLogin.redirect');
+Route::get('/callback/{provider}', [LoginController::class,'handleProviderCallback'])->name('socialLogin.callback');
